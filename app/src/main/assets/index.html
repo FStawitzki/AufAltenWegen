@@ -5,17 +5,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Leaflet Routing Example</title>
     <!-- Include Leaflet CSS -->
-    <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          rel="stylesheet"/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
-    <link rel="stylesheet" href="leaflet-routing-machine.css" />
+    <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <!-- Include Leaflet and Routing Plugin JavaScript -->
-    <script crossorigin=""
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="leaflet.js"></script>
-    <script src="leaflet-routing-machine.js"></script>
+    <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <style>
         body {
             padding: 0;
@@ -38,24 +34,25 @@
     var imageURL = "https://i.ibb.co/ts3Xzbm/Stadtplan-2-Dortmund-1937-1.jpg";
     var latLngBounds = L.latLngBounds([[51.5525, 7.4095], [51.4755, 7.5505]]);
     var imageOverlay = L.imageOverlay(imageURL, latLngBounds, {
-            opacity: 0.6,
-            interactive: true
-        }).addTo(map);
+        opacity: 0.8,
+        interactive: true
+    }).addTo(map);
 
     // Add Tile layer for map
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    L.Control.geocoder().addTo(map);
 
-    L.Routing.control({
+    var routingControl = L.Routing.control({
         waypoints: [
             L.latLng(51.51734332775469, 7.461090579280928),
             L.latLng(51.509787038594204, 7.468353324731257)
         ],
-        routeWhileDragging: true
+        routeWhileDragging: true,
+        geocoder: L.Control.Geocoder.nominatim()
     }).addTo(map);
-
 
 </script>
 </body>
