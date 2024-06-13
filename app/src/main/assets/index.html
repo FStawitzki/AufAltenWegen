@@ -8,7 +8,8 @@
     <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           rel="stylesheet"/>
-    <link href="leaflet-routing-machine.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet-routing-machine.css" />
     <!-- Include Leaflet and Routing Plugin JavaScript -->
     <script crossorigin=""
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -23,10 +24,15 @@
         #map {
             height: 800px;
         }
+        .map {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
-<div id="map"></div>
+<div id="map" class="map"></div>
 <script>
     var map = L.map('map').setView([51.51332457042944, 7.473691737918938], 13); // Initialize map at specific coordinates and zoom level
     var imageURL = "https://i.ibb.co/ts3Xzbm/Stadtplan-2-Dortmund-1937-1.jpg";
@@ -38,29 +44,19 @@
 
     // Add Tile layer for map
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-    // Initialize routing control
-    var control = L.Routing.control({
-        waypoints: [
-            L.latLng(51.5, -0.09), // Starting point
-            L.latLng(51.51, -0.1)   // Destination
-        ],
-        routeWhileDragging: true,
-        geocoder: L.Control.Geocoder.nominatim()
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    // Add marker for starting point
-    L.marker([51.5, -0.09]).addTo(map)
-        .bindPopup('Starting Point')
-        .openPopup();
+    L.Routing.control({
+        waypoints: [
+            L.latLng(51.51734332775469, 7.461090579280928),
+            L.latLng(51.509787038594204, 7.468353324731257)
+        ],
+        routeWhileDragging: true
+    }).addTo(map);
 
-    // Add marker for destination
-    L.marker([51.51, -0.1]).addTo(map)
-        .bindPopup('Destination')
-        .openPopup();
+
 </script>
 </body>
 </html>
